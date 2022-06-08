@@ -1,0 +1,21 @@
+带有接收者的函数字面值
+
+带有接收者的函数字面值，提供类似于扩展函数接收this的能力
+class People {
+}
+
+fun People.extFun1(content: String) {
+    println("extFun1 content = $content")
+}
+
+fun main() {
+	//带有接收者的函数字面值，不是扩展函数
+    val extFun2: People.(String) -> Unit = { content ->
+        println("extFun2 content = $content")
+    }
+    val people = People("jack")
+    people.extFun1("extFun1->1")
+    //extFun1(people, "extFun1->2") //报错，扩展函数不能这样使用
+    people.extFun2("extFun2->1")
+    extFun2(people, "extFun2->2")
+}
